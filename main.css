@@ -1,0 +1,20 @@
+.kulim-park-light {
+    font-family: "Kulim Park", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+#EatButton {
+    background-color: pink;
+    width: 30%;
+    height: 15%;
+    font-size: 10vmin;
+    position: absolute;
+    top: 1%;
+    left: 35%;
+    font-family: 'Kulim Park', sans-serif;
+}
+#ChocolateDisplayText {
+    font-size: 10vmin;
+    font-family: 'Kulim Park', sans-serif;
+}

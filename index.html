@@ -1,12 +1,25 @@
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
   <title>
     Hello
   </title>
-  <script src = "main.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@v0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type = "module" src = "main.js"></script>
+  <link rel ="stylesheet" href="main.css">
 </head>
 <body>
   <div>
-    <button id = "Button1">eat</button>
+    <button id = "EatButton">eat</button>
   </div>
-  <span id="text1">0</span>
+  <span id="ChocolateDisplayText">0</span>
+  <div id="Chocolate3dRender"></div>
 </body>
