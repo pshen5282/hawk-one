@@ -1,0 +1,15 @@
+ideas!!
+ok i found out how to add new lines
+kinds of chocolate
+-----------------
+sapphire chocolate: value decreases over time, timer is reset whenever bar is spawned
+jade chocolate: value increases over time, capped at something, timer is reset when bar is spawned
+wafer - bar value 25% more 
+raw chocolate - value increases by how many different types of chocolate are in use in your bar
+peanut butter chocolate - increases bar value by 75%, decreases eating strength by 2
+ADD A RESET BAR BUTTON SO U DONT SOFTLOCK URSELF
+metal chocolate - 20hp , 50 val
+caramel chocolate - decreases bar value by 20%, increases eating strength by 9
+coconut chocolate - makes bar value 0% and kills you and kills yo uebcase ui hate coconut it sucks !important
+
+https://www.youtube.com/watch?v=BHv4n0EmCKw

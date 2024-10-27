@@ -3,7 +3,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
   <title>
-    Hello
+    🍫
   </title>
   <script type="importmap">
     {
@@ -14,12 +14,41 @@
     }
   </script>
   <script type = "module" src = "main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/break_infinity.js@2"></script>
   <link rel ="stylesheet" href="main.css">
 </head>
+
+
+
 <body>
-  <div>
-    <button id = "EatButton">eat</button>
+  <audio id="ID" style="display: none;">
+    <source src="/sounds/song.mp3" type="audio/mp3">
+  </audio>
+  <div id="LeftSection">
+    
+    </div>
   </div>
-  <span id="ChocolateDisplayText">0</span>
-  <div id="Chocolate3dRender"></div>
+
+
+  <div id="CenterSection">
+    <div id="Chocolate3dRender"></div>
+    <button id = "EatButton">eat</button>
+    <span id="ChocolateDisplayText">0</span>
+    <span id="ChocolateTempDisplay"></span>
+  </div>
+  
+  
+  <div id="RightSection">
+    <div id="ChocolateSelection">
+      <div id="CHSHeader">
+        <button id="CHSHeaderLeft"> &lt; </button>
+        <div id = "CHSHeaderText"> 1 Piece </div>
+        <button id="CHSHeaderRight"> &gt; </button>
+        
+      </div>
+      <div id="CSelOptions">
+        
+      </div>
+  </div>
+
 </body>

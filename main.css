@@ -4,17 +4,99 @@
     font-style: normal;
   }
 
+body {
+    background-color: white;
+    display:flex;
+    flex-direction: row;
+    height: 100%;
+}
+#LeftSection {
+    width: 25%;
+    height: 100%;
+}
+#CenterSection {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+#RightSection {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#ChocolateSelection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#ChocolateTempDisplay {
+    font-family: 'Arial', sans-serif; 
+}
 #EatButton {
     background-color: pink;
-    width: 30%;
-    height: 15%;
-    font-size: 10vmin;
-    position: absolute;
-    top: 1%;
-    left: 35%;
+    position: relative;
     font-family: 'Kulim Park', sans-serif;
+    transition-duration: 0.5s;
+    width: 100%;
+    height: 20%;
+    font-size: 8vmin;
+}
+#EatButton:hover {
+    background-color: red;
 }
 #ChocolateDisplayText {
     font-size: 10vmin;
     font-family: 'Kulim Park', sans-serif;
+}
+#CHSHeader {
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 15%;
+    background-color: gray;
+    
+}
+#CHSHeader > button {
+    width: 25%;
+    font-size: 8vmin;
+}
+#CHSHeaderText {
+    width: 50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4vmin;
+    font-family: 'Arial', sans-serif; 
+    font-weight: 300;
+}
+#CSelOptions {
+    background-color: gray;
+    height: 85%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 25% 25% 25% 25%;
+    font-family: 'Kulim Park', sans-serif;
+}
+#CSelOptions > button {
+    width: 100%;
+    height: 100%;
+    font-size: 5vmin;
+}
+#ChocolateTempDisplay {
+    width: 75%;
+    height: 30%;
+    border: black solid 0.5vmin;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+.chocolate {
+    width: 100%;
+    height: 100%;
+    outline: black solid 0.5vmin;
 }
