@@ -100,3 +100,12 @@ body {
     height: 100%;
     outline: black solid 0.5vmin;
 }
+
+#Store {
+    font-family: 'Kulim Park', sans-serif;
+    font-size: 10vmin;
+    text-align: center;
+}
+#LeftSection {
+    background-color: gainsboro;
+}
