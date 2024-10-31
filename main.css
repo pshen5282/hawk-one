@@ -9,6 +9,9 @@ body {
     display:flex;
     flex-direction: row;
     height: 100%;
+    overflow: hidden;
+    background-image: url("/misc/huh.png");
+    background-size: cover;
 }
 #LeftSection {
     width: 25%;
@@ -26,6 +29,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    z-index: 2;
 }
 
 #ChocolateSelection {
@@ -38,16 +42,18 @@ body {
     font-family: 'Arial', sans-serif; 
 }
 #EatButton {
-    background-color: pink;
+    background-color: white;
     position: relative;
     font-family: 'Kulim Park', sans-serif;
     transition-duration: 0.5s;
     width: 100%;
     height: 20%;
     font-size: 8vmin;
+    opacity: 25%;
+    border: none;
 }
 #EatButton:hover {
-    background-color: red;
+    opacity: 90%;
 }
 #ChocolateDisplayText {
     font-size: 10vmin;
@@ -58,24 +64,33 @@ body {
     flex-direction: row;
     width: 100%;
     height: 15%;
-    background-color: gray;
+    background-color: transparent;
+    opacity: 70%;
     
 }
 #CHSHeader > button {
     width: 25%;
     font-size: 8vmin;
+    border: none;
+    opacity: 40%;
+    transition-duration: 0.5s;
+    background-color: white;
+}
+#CHSHeader > button:hover {
+    opacity: 80%;
 }
 #CHSHeaderText {
     width: 50%;
     display:flex;
     justify-content: center;
     align-items: center;
-    font-size: 4vmin;
-    font-family: 'Arial', sans-serif; 
-    font-weight: 300;
+    font-size: 6vmin;
+    font-family: 'Kulim Park', sans-serif;
+    background-color: rgba(255, 255, 255, 0)
 }
+
 #CSelOptions {
-    background-color: gray;
+    background-color: transparent;
     height: 85%;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -85,8 +100,16 @@ body {
 #CSelOptions > button {
     width: 100%;
     height: 100%;
-    font-size: 5vmin;
+    font-size: 7vmin;
+    transition-duration: 0.5s;
+    font-family: 'Kulim Park', sans-serif;
+    opacity: 50%;
+    border: none;
 }
+#CSelOptions > button:hover {
+    opacity: 90%;
+}
+
 #ChocolateTempDisplay {
     width: 75%;
     height: 30%;
@@ -108,4 +131,20 @@ body {
 }
 #LeftSection {
     background-color: gainsboro;
+    opacity:40%;
+}
+#Chocolate3dRender{
+    position: relative;
+    bottom: 10%;
+}
+.green {
+    animation: 0.5s linear 0s forwards greenfn;
+}
+@keyframes greenfn {
+    from {
+
+    }
+    to {
+        background-color: green;
+    }
 }
