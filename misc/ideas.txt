@@ -8,10 +8,11 @@ wafer - bar value 25% more
 raw chocolate - value increases by how many different types of chocolate are in use in your bar
 peanut butter chocolate - increases bar value by 65%, decreases eating strength by 2
 ADD A RESET BAR BUTTON SO U DONT SOFTLOCK URSELF
-metal chocolate - 20hp , 50 val
+DONE metal chocolate - 20hp , 50 val
 caramel chocolate - decreases bar value by 20%, increases eating strength by 9
 coconut chocolate - 250% more bar value, adjacent chocolate value is 0
 topaz chocolate - decreases bar value by 50%, 180 val, 6hp
 mint chocolate - chocolate val is equal to 5 * log5(chocolate) 16hp
 scary chocolate - jumpscare
+seasalt chocolate - ?
 https://www.youtube.com/watch?v=BHv4n0EmCKw

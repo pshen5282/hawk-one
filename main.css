@@ -3,6 +3,11 @@
     font-weight: 300;
     font-style: normal;
   }
+  .kulim-park-bold {
+    font-family: "Kulim Park", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
 
 body {
     background-color: white;
@@ -16,6 +21,7 @@ body {
 #LeftSection {
     width: 25%;
     height: 100%;
+    z-index: 2;
 }
 #CenterSection {
     width: 50%;
@@ -51,6 +57,7 @@ body {
     font-size: 8vmin;
     opacity: 25%;
     border: none;
+    border-radius: 0.5rem;
 }
 #EatButton:hover {
     opacity: 90%;
@@ -75,6 +82,7 @@ body {
     opacity: 40%;
     transition-duration: 0.5s;
     background-color: white;
+    border-radius: 0.5rem;
 }
 #CHSHeader > button:hover {
     opacity: 80%;
@@ -86,52 +94,43 @@ body {
     align-items: center;
     font-size: 6vmin;
     font-family: 'Kulim Park', sans-serif;
-    background-color: rgba(255, 255, 255, 0)
+    background-color: rgba(255, 255, 255, 0);
+}
+#CHSHeaderText > img {
+    width:200%
 }
 
 #CSelOptions {
     background-color: transparent;
-    height: 85%;
+    height: 50%;
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 25% 25% 25% 25%;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(5,25%);
     font-family: 'Kulim Park', sans-serif;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 #CSelOptions > button {
     width: 100%;
     height: 100%;
-    font-size: 7vmin;
+    font-size: 4vmin;
     transition-duration: 0.5s;
     font-family: 'Kulim Park', sans-serif;
     opacity: 50%;
     border: none;
+    border-radius: 0.5rem;
 }
 #CSelOptions > button:hover {
     opacity: 90%;
-}
-
-#ChocolateTempDisplay {
-    width: 75%;
-    height: 30%;
-    border: black solid 0.5vmin;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-}
-.chocolate {
-    width: 100%;
-    height: 100%;
-    outline: black solid 0.5vmin;
 }
 
 #Store {
     font-family: 'Kulim Park', sans-serif;
     font-size: 10vmin;
     text-align: center;
-}
-#LeftSection {
+    height: 65%;
     background-color: gainsboro;
-    opacity:40%;
+    opacity: 0.75;
 }
 #Chocolate3dRender{
     position: relative;
@@ -140,6 +139,17 @@ body {
 .green {
     animation: 0.5s linear 0s forwards greenfn;
 }
+.hovertext {
+    height: 35%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.25);
+    font-family: 'Kulim Park', sans-serif;
+    font-size: 3.5vmin;
+    text-align: center;
+}
+.hovertitle {
+    font-size: 5vmin;
+}
 @keyframes greenfn {
     from {
 
@@ -147,4 +157,39 @@ body {
     to {
         background-color: green;
     }
+}
+
+#StoreButtons {
+    font-size: 4vmin;
+    overflow-y:scroll;
+    height: 83%;
+}
+#StoreButtons > div > button {
+    width: 80%;
+    height: 10%;
+    align-self: center;
+    font-size: 4vmin;
+    background-color: gainsboro;
+    transition-duration: 0.25s;
+    border:none;
+    border-radius: 0.5rem;
+}
+#Storebuttons > div > span {
+    font-size: 6vmin;
+    font-family: 'Kulim Park', sans-serif;
+    font-weight: 700;
+    background: -webkit-linear-gradient(#FFF3A2, #FF2B40);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px white;
+}
+#StoreButtons > div > button:hover {
+    background-color: white;
+}
+#StoreButtons > div {
+    transition-duration: 0.5s;
+    background-color: rgb(200, 200, 200);
+}
+#StoreButtons > div:hover {
+    background-color: rgb(150, 150, 150);
 }

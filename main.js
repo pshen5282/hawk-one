@@ -3,13 +3,13 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 document.addEventListener("DOMContentLoaded", () =>{
-    document.addEventListener('click', function() { 
+    document.addEventListener('click', function() {
         document.getElementById('ID').play() 
         document.getElementById('ID').addEventListener(
             "ended",
             () => {
-                this.currentTime = 0;
-                this.play();
+                document.getElementById('ID').currentTime = 0;
+                document.getElementById('ID').play();
             },
             false
         );
@@ -22,49 +22,171 @@ document.addEventListener("DOMContentLoaded", () =>{
     let selectedCH = new Decimal("1")
     let cDmg = new Decimal("1")
     let clickable = true
+    let chocolateValueMulti = new Decimal('1')
+    let multiArray = [new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1')]
     let cInv = {
         "milk": new Decimal("8"),
-        "dark": new Decimal("8"),
-        "white": new Decimal("8"),
-        "ruby": new Decimal("8"),
+        "dark": new Decimal("0"),
+        "white": new Decimal("0"),
+        "ruby": new Decimal("0"),
+        "sapphire": new Decimal("0"),
+        "jade": new Decimal("0"),
+        "metal": new Decimal("0"),
+        "peanutButter": new Decimal("0"),
+        "raw": new Decimal("0"),
+        "wafer": new Decimal("0"),
     }
     let nValAr = {
         "milk": new Decimal("1"),
         "dark": new Decimal("8"),
         "white": new Decimal("1"),
         "ruby": new Decimal("2"),
-        "sapphire": new Decimal("1"),
+        "sapphire": new Decimal("15"),
+        "jade": new Decimal("1"),
+        "metal": new Decimal("50"),
+        "peanutButter": new Decimal("1"),
+        "raw": new Decimal("1"),
+        "wafer": new Decimal("0.5"),
     }
     let nHpAr = {
         "milk": new Decimal("1"),
         "dark": new Decimal("4"),
         "white": new Decimal("1"),
         "ruby": new Decimal("3"),
-        "sapphire": new Decimal("1"),
+        "sapphire": new Decimal("3"),
+        "jade": new Decimal("3"),
+        "metal": new Decimal("20"),
+        "peanutButter": new Decimal("1"),
+        "raw": new Decimal("2"),
+        "wafer": new Decimal("1"),
+        
     }
     let nFlTxt = {
-        "milk": '\'standard milk chocolate\' (1/1), no special effects',
-        "dark": '\'a stronger tasting dark chocolate\' (8/4), no special effects',
-        "white": '\'white chocolate made from cocoa butter\' (1,1), nearby chocolate is worth 1.5x',
-        "ruby": '\'a more acidic chocolate between white and milk chocolate\'(2,3), when eaten bite strength +2',
-        "sapphire": '\'ill add this later\''
+        "milk": '"standard milk chocolate"<br> (1/1), no special effects',
+        "dark": '"a stronger tasting dark chocolate"<br> (8/4), no special effects',
+        "white": '"white chocolate made from cocoa butter"<br> (1,1), nearby chocolate is worth 1.5x',
+        "ruby": '"a more acidic chocolate between white and milk chocolate"<br> (2,3), when eaten bite strength +2',
+        "sapphire": '"this chocolate is not actually made of sapphire, its just blue"<br> (15, 3), value decreases over time',
+        "jade": '"most popular chocolate used for chocolate jewerly"<br> (3, 3), value increases over time, capped at x200',
+        "wafer": '"despite barely adding flavor, it makes this up with its texture"<br> (1, 1), bar value is worth 25% more',
+        "raw": '"tastes good even though its raw"<br> (2, 1), value depends on the amount of unique chocolate types in the bar',
+        "peanutButter": '"this chocolate is nuts"<br> (1, 1), increases bar value by 65%, but decreases bite strength by 2',
+        "metal": '"chocolate infused with metal to the point of near inedibility"<br> (50, 20), no special effects',
     }
+    let timeSince = Date.now()
+    let chocolateFunctionsPassive = {
+        milk:function(){},
+        dark:function(){},
+        ruby:function(){},
+        white:function(hawk){
+            let v = checkadjacent(hawk)
+            for (let i in v) {
+                multiArray[v[i]] = multiArray[v[i]].times(new Decimal('1.5'))
+            }
+        },
+        wafer:function(){
+            for (let i in multiArray) {
+                multiArray[i] = multiArray[i].times(new Decimal('1.25'))
+            }
+        },
+        jade:function(){},
+        sapphire:function(){},
+        raw:function(){},
+        peanutButter:function(){},
+        metal:function(){},
+    }
+    let chocolateFunctionsEaten = {
+        milk:function(){},
+        dark:function(){},
+        ruby:function(){cDmg = cDmg.add(2)},
+        white:function(){},
+        wafer:function(){},
+        jade:function(){
+            multiArray[selectedC] = multiArray[selectedC].times(new Decimal('2').pow(new Decimal('-25').div((Date.now() + 1 - timeSince) / 1000))).times(new Decimal('100'))
+        },
+        sapphire:function(){
+            multiArray[selectedC] = multiArray[selectedC].div(new Decimal((Date.now() + 1 - timeSince) / 500))
+        },
+        raw:function(){
+            let v = [...new Set (array)].length
+            multiArray[selectedC] = multiArray[selectedC].times(new Decimal(2).pow(v))
+        },
+        peanutButter:function(){
+            for (let i in multiArray) {
+                multiArray[i] = multiArray[i].times(new Decimal('1.65'))
+            }
+            cDmg = cDmg.sub(2)
+        },
+        metal:function(){},
+    }
+
     let nStoContents = {
         "BarOne": {
-            "dark": 34,
-            "white": 33,
-            "ruby": 33,
+            "dark": 40,
+            "white": 35,
+            "ruby": 25,
+        },
+        "BarTwo": {
+            "wafer": 34,
+            "metal": 33,
+            "raw": 33,
+        },
+        "BarThree": {
+            "sapphire": 33,
+            "jade": 17,
+            "peanutButter": 25,
+            "raw": 25,
         },
     }
     let bPrices = {
-        "BarOne": new Decimal("50")
+        "BarOne": new Decimal("50"),
+        "BarTwo": new Decimal("1750"),
+        "BarThree": new Decimal("15250"),
     }
-    let save = {};
+    let save = {}; //for future local storage shenanigans
+
     function updateBarArray() {
         for (let n in realInvArray) {
             array[n] = realInvArray[n]
         }
     }
+    function updateStore() {
+        for (let i in bPrices) {
+            let newElement = document.createElement('div')
+            newElement.addEventListener("mouseover", () => {
+                document.getElementById("hovertext2").innerHTML = '<span class="hovertitle">' + i + "</span><br>"
+                for (let e in eval("nStoContents." + i)) {
+                    document.getElementById("hovertext2").innerHTML += e + ": " + eval("nStoContents." + i + "." + e) + "%<br>";
+                }
+            })
+            newElement.addEventListener("mouseout", () => {
+                document.getElementById("hovertext2").innerHTML = "";
+            })
+            newElement.innerHTML = '<span class="nane">'+i+'</span>'+"<br>Price: "+bPrices[i]+" Chocolates"
+            let newButton = document.createElement('button')
+            newButton.addEventListener("click", () => {
+                if (chocolate.cmp(bPrices[i]) >= 0) {
+                    chocolate = chocolate.minus(bPrices[i]);
+                    updateChDisplay()
+                    for (let v = 0; v < 2; v++) {
+                        let rInt = Math.floor(Math.random() * 100)+1
+                        for (let j in nStoContents[i]) {
+                            rInt -= nStoContents[i][j]
+                            if (rInt <= 0) {
+                                cInv[j] = cInv[j].add(new Decimal('1'))
+                                updateSelector()
+                                break
+                            }
+                        }
+                    }
+                }
+            });
+            newButton.innerHTML = "buy"
+            newElement.append(newButton)
+            document.getElementById('StoreButtons').appendChild(newElement)
+        }
+    }
+    updateStore();
     function updateSelector(buttonhighlight = 0) {
         let poo = {}
         for (let n in cInv) {
@@ -73,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         for (let v in realInvArray) {
             poo[realInvArray[v]] = poo[realInvArray[v]].minus(new Decimal("1"))
         }
-        document.getElementById("CHSHeaderText").innerHTML = selectorSelection + 1 + " Piece"
+        document.getElementById("CHSHeaderText").innerHTML ='<img src="/misc/tiles/tile'+(selectorSelection+1)+'.png"/></img>'
         document.getElementById("CSelOptions").innerHTML = "";
         let buttonId = 1;
         for (let quantity in cInv) {
@@ -97,6 +219,12 @@ document.addEventListener("DOMContentLoaded", () =>{
                         realInvArray[selectorSelection] = quantity;
                         updateSelector()
                 });
+                newButton.addEventListener("mouseover", () => {
+                    document.getElementById("hovertext").innerHTML = '<span class="hovertitle">' + quantity + "</span><br>" + eval("nFlTxt." + quantity);
+                });
+                newButton.addEventListener("mouseout", () => {
+                    document.getElementById("hovertext").innerHTML = "";
+                });
                 buttonId++;
             }
         }
@@ -105,13 +233,30 @@ document.addEventListener("DOMContentLoaded", () =>{
     let temparray = array
     //checks for nearby pieces
     function checkadjacent(index) {
-        let array2 = [];
-        let somethingtodo = 0;
-        index >= 1 ? array2.push(array[index - 1]): somethingtodo++;
-        index <= 6 ? array2.push(array[index + 1]): somethingtodo++;
-        index + 4 <= 7 ? array2.push(array[index + 4]): somethingtodo++;
-        index - 4 >= 1 ? array2.push(array[index - 4]): somethingtodo++;
-        return array2;
+        if (index == 0) {
+            return [1,4]
+        }
+        if (index == 1) {
+            return [0,2,5]
+        }
+        if (index == 2) {
+            return [1,3,6]
+        }
+        if (index == 3) {
+            return [2,7]
+        }
+        if (index == 4) {
+            return [0,5]
+        }
+        if (index == 5) {
+            return [1,4,6]
+        }
+        if (index == 6) {
+            return [2,5,7]
+        }
+        if (index == 7) {
+            return [3,6]
+        }
     }
     //count # of things in table
     function countthing(array, thing) {
@@ -175,12 +320,21 @@ document.addEventListener("DOMContentLoaded", () =>{
 	    renderer.render( scene, camera );
     }
     
+    function updateChDisplay() {
+        document.getElementById("ChocolateDisplayText").innerHTML = chocolate.toFixed(0) +" chocolates";
+    }
 
     let nameToObjName = {
         milk: 'MilkChocolate',
         dark: 'DarkChocolate',
         ruby: 'RubyChocolate',
         white: 'WhiteChocolate',
+        jade: 'JadeChocolate',
+        metal: 'MetalChocolate',
+        peanutButter: 'PeanutButterChocolate',
+        raw: 'RawChocolate',
+        sapphire: 'SapphireChocolate',
+        wafer: 'Wafer',
     }
 
     renderer.setAnimationLoop( animate );
@@ -188,7 +342,6 @@ document.addEventListener("DOMContentLoaded", () =>{
     function generateThreeBoard() {
         clickable = false
         for (let n in scene.children) {
-            console.log(!(scene.children[n].name == ""))
             if (scene.children[n].isGroup == true) {
                 scene.remove(scene.children[n])
             }
@@ -202,6 +355,11 @@ document.addEventListener("DOMContentLoaded", () =>{
         },350)
     }
     generateThreeBoard()
+    
+    for (let hawk in array) {
+        chocolateFunctionsPassive[array[hawk]](hawk)
+    }
+
     document.getElementById("EatButton").addEventListener("click", () =>{
         if (clickable) {
             if (Math.floor(Math.random() * 1.1) === 0) {
@@ -212,13 +370,10 @@ document.addEventListener("DOMContentLoaded", () =>{
                 let audiotrack = new Audio("/sounds/crunch.mp3");
                 audiotrack.play();
             }
-            
             selectedCH = selectedCH.minus(cDmg);
             if (selectedCH <= 0) {
-                chocolate = chocolate.plus(nValAr[array[selectedC]].times(new Decimal('1.5').pow(countthing(checkadjacent(selectedC), "white"))));
-                if (array[selectedC] === "ruby") {
-                    cDmg = cDmg.add(3)
-                }
+                chocolateFunctionsEaten[array[selectedC]]()
+                chocolate = chocolate.plus(nValAr[array[selectedC]].times(multiArray[selectedC]).times(chocolateValueMulti));
                 for (let n in scene.children) {
                     if (scene.children[n].name === selectedC) {
                         scene.remove(scene.children[n])
@@ -231,13 +386,18 @@ document.addEventListener("DOMContentLoaded", () =>{
                     cDmg = new Decimal("1")
                     updateBarArray()
                     temparray = array;
-                    
+                    multiArray = [new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1')]
                     generateThreeBoard()
+                    timeSince = Date.now()
+
+                    for (let hawk in array) {
+                        chocolateFunctionsPassive[array[hawk]](hawk)
+                    }
                 }
                 selectedCH = nHpAr[array[selectedC]]
-    
+                updateChDisplay()
             }
-            document.getElementById("ChocolateDisplayText").innerHTML = chocolate.toFixed(0) +"";
+           
         }
     })
     document.getElementById("CHSHeaderLeft").addEventListener("click", () => {
