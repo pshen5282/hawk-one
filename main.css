@@ -97,7 +97,11 @@ body {
     background-color: rgba(255, 255, 255, 0);
 }
 #CHSHeaderText > img {
-    width:200%
+    width:200%;
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
 }
 
 #CSelOptions {

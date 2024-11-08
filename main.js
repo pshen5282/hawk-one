@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         "dark": new Decimal("8"),
         "white": new Decimal("1"),
         "ruby": new Decimal("2"),
-        "sapphire": new Decimal("15"),
+        "sapphire": new Decimal("25"),
         "jade": new Decimal("1"),
         "metal": new Decimal("50"),
         "peanutButter": new Decimal("1"),
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         "dark": '"a stronger tasting dark chocolate"<br> (8/4), no special effects',
         "white": '"white chocolate made from cocoa butter"<br> (1,1), nearby chocolate is worth 1.5x',
         "ruby": '"a more acidic chocolate between white and milk chocolate"<br> (2,3), when eaten bite strength +2',
-        "sapphire": '"this chocolate is not actually made of sapphire, its just blue"<br> (15, 3), value decreases over time',
+        "sapphire": '"this chocolate is not actually made of sapphire, its just blue"<br> (25, 3), value decreases over time',
         "jade": '"most popular chocolate used for chocolate jewerly"<br> (3, 3), value increases over time, capped at x200',
         "wafer": '"despite barely adding flavor, it makes this up with its texture"<br> (1, 1), bar value is worth 25% more',
         "raw": '"tastes good even though its raw"<br> (2, 1), value depends on the amount of unique chocolate types in the bar',
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         },
         raw:function(){
             let v = [...new Set (array)].length
-            multiArray[selectedC] = multiArray[selectedC].times(new Decimal(2).pow(v))
+            multiArray[selectedC] = multiArray[selectedC].times(new Decimal(1.6).pow(v))
         },
         peanutButter:function(){
             for (let i in multiArray) {
@@ -133,15 +133,14 @@ document.addEventListener("DOMContentLoaded", () =>{
         },
         "BarThree": {
             "sapphire": 33,
-            "jade": 17,
-            "peanutButter": 25,
-            "raw": 25,
+            "jade": 33,
+            "peanutButter": 34,
         },
     }
     let bPrices = {
         "BarOne": new Decimal("50"),
         "BarTwo": new Decimal("1750"),
-        "BarThree": new Decimal("15250"),
+        "BarThree": new Decimal("11250"),
     }
     let save = {}; //for future local storage shenanigans
 
@@ -159,14 +158,14 @@ document.addEventListener("DOMContentLoaded", () =>{
                     document.getElementById("hovertext2").innerHTML += e + ": " + eval("nStoContents." + i + "." + e) + "%<br>";
                 }
             })
-            newElement.addEventListener("mouseout", () => {
-                document.getElementById("hovertext2").innerHTML = "";
-            })
             newElement.innerHTML = '<span class="nane">'+i+'</span>'+"<br>Price: "+bPrices[i]+" Chocolates"
             let newButton = document.createElement('button')
             newButton.addEventListener("click", () => {
                 if (chocolate.cmp(bPrices[i]) >= 0) {
                     chocolate = chocolate.minus(bPrices[i]);
+                    bPrices[i] = (bPrices[i].times(new Decimal('1.15'))).round()
+                    newElement.innerHTML = '<span class="nane">'+i+'</span>'+"<br>Price: "+bPrices[i]+" Chocolates"
+                    newElement.appendChild(newButton)
                     updateChDisplay()
                     for (let v = 0; v < 2; v++) {
                         let rInt = Math.floor(Math.random() * 100)+1
