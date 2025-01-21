@@ -24,35 +24,53 @@
   <audio id="ID" style="display: none;">
     <source src="/sounds/song.mp3" type="audio/mp3">
   </audio>
-    <div id="LeftSection">
-      <div id="Store">
-        <div id="Title"> Store </div>
-        <div id="StoreButtons"></div>
-      </div>
-      <div class="hovertext" id="hovertext2"></div>
-    </div>
-  </div>
-
 
   <div id="CenterSection">
-    <button id = "EatButton">eat</button>
     <span id="ChocolateDisplayText">0 chocolates</span>
+    <button id="EatButton">eat</button>
     <div id="Chocolate3dRender"></div>
   </div>
-  
+
+  <div id="LeftSection">
+    <div id="leftbuttons">
+      <button id="leftbutton1" class="leftbutton green">1</button> 
+      <button id="leftbutton2" class="leftbutton">2</button> 
+      <button id="leftbutton3" class="leftbutton">3</button> 
+      <button id="leftbutton4" class="leftbutton">4</button> 
+      <button id="leftbutton5" class="leftbutton">5</button> 
+      <button id="leftbutton6" class="leftbutton">6</button> 
+      <button id="leftbutton7" class="leftbutton">7</button> 
+      <button id="leftbutton8" class="leftbutton">8</button> 
+    </div>
+    <div id="rightbuttons">
+      <button id="chocolatetab" class="rightbutton" style="background-color: gold;">Chocolate</button> 
+      <button id="storetab" class="rightbutton">Store</button> 
+      <button id="resettab" class="rightbutton">Resets</button> 
+      <button id="settingtab" class="rightbutton">Settings</button> 
+    </div>
+  </div>
   
   <div id="RightSection">
-    <div id="ChocolateSelection">
-      <div id="CHSHeader">
-        <button id="CHSHeaderLeft"> &lt; </button>
-        <div id = "CHSHeaderText"> 1 Piece </div>
-        <button id="CHSHeaderRight"> &gt; </button>
-        
-      </div>
+    <div id="chocolatemenu" class="menu" style="display: flex">
+      <div class="hovertext" id="hovertext"></div>
       <div id="CSelOptions">
         
       </div>
-      <div class="hovertext" id="hovertext"></div>
+    </div>
+    <div id="storemenu" class="menu" style="display: none">
+      <div class="hovertext" id="hovertext2"></div>
+      <div id="StoreButtons"></div>
+    </div>
+    <div id="resetmenu" class="menu" style="display: none;">
+      <div id="meltcontainer" class="reset">
+        <span class="resettext">MELT</span>
+        <span class="resetinfo">melt your chocolate into melts, resets all chocolate and all chocolates in your inventory except milk</span>
+        <button class="resetbutton" id="meltbutton">loading...</button>
+      </div>
+    </div>
+    <div id="settingsmenu" class="menu" style="display: none;">
+
+    </div>
   </div>
 
 </body>

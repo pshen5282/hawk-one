@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", () =>{
             false
         );
     })
-    let chocolate = new Decimal("0")
+    let chocolate = new Decimal("600000")
+    let melts = new Decimal("0")
     let realInvArray = ["milk","milk","milk","milk","milk","milk","milk","milk"]
     let array = []
     let selectedC = 0
@@ -23,8 +24,9 @@ document.addEventListener("DOMContentLoaded", () =>{
     let cDmg = new Decimal("1")
     let clickable = true
     let chocolateValueMulti = new Decimal('1')
+    let selectedStoreSection = "chocolatebars"
     let multiArray = [new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1')]
-    let cInv = {
+    let defaultInv = {
         "milk": new Decimal("8"),
         "dark": new Decimal("0"),
         "white": new Decimal("0"),
@@ -36,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         "raw": new Decimal("0"),
         "wafer": new Decimal("0"),
     }
+    let cInv = {...defaultInv}
     let nValAr = {
         "milk": new Decimal("1"),
         "dark": new Decimal("8"),
@@ -72,6 +75,9 @@ document.addEventListener("DOMContentLoaded", () =>{
         "raw": '"tastes good even though its raw"<br> (2, 1), value depends on the amount of unique chocolate types in the bar',
         "peanutButter": '"this chocolate is nuts"<br> (1, 1), increases bar value by 65%, but decreases bite strength by 2',
         "metal": '"chocolate infused with metal to the point of near inedibility"<br> (50, 20), no special effects',
+    }
+    let meltBoughtUpgrades = {
+
     }
     let timeSince = Date.now()
     let chocolateFunctionsPassive = {
@@ -143,6 +149,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         "BarThree": new Decimal("11250"),
     }
     let save = {}; //for future local storage shenanigans
+    let tabselected = 0; //what tab is being selected atm
 
     function updateBarArray() {
         for (let n in realInvArray) {
@@ -185,6 +192,15 @@ document.addEventListener("DOMContentLoaded", () =>{
             document.getElementById('StoreButtons').appendChild(newElement)
         }
     }
+    function updateResets(){
+        let newReset = document.createElement("div")
+        newReset.innerHTML = '<span class="nane">Melt</span>'
+        let newButton = document.createElement("button")
+        newButton.innerHTML = "Convert"
+        newReset.appendChild(newButton)
+        document.getElementById("Resets").appendChild(newReset)
+    }
+    //updateResets()
     updateStore();
     function updateSelector(buttonhighlight = 0) {
         let poo = {}
@@ -194,7 +210,6 @@ document.addEventListener("DOMContentLoaded", () =>{
         for (let v in realInvArray) {
             poo[realInvArray[v]] = poo[realInvArray[v]].minus(new Decimal("1"))
         }
-        document.getElementById("CHSHeaderText").innerHTML ='<img src="/misc/tiles/tile'+(selectorSelection+1)+'.png"/></img>'
         document.getElementById("CSelOptions").innerHTML = "";
         let buttonId = 1;
         for (let quantity in cInv) {
@@ -222,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                     document.getElementById("hovertext").innerHTML = '<span class="hovertitle">' + quantity + "</span><br>" + eval("nFlTxt." + quantity);
                 });
                 newButton.addEventListener("mouseout", () => {
-                    document.getElementById("hovertext").innerHTML = "";
+                    document.getElementById("hovertext").innerHTML = '<span class="hovertitle">' + realInvArray[selectorSelection] + "</span><br>" + eval("nFlTxt." + realInvArray[selectorSelection]);
                 });
                 buttonId++;
             }
@@ -268,11 +283,11 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     updateBarArray()
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
+    const camera = new THREE.PerspectiveCamera(70 , window.innerWidth / window.innerHeight, 1, 1000);
     const renderer = new THREE.WebGLRenderer({alpha: true});
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( window.innerWidth / 2.4, window.innerHeight / 2.4);
     document.getElementById("Chocolate3dRender").appendChild( renderer.domElement );
     const light = new THREE.PointLight(0xFFFFFF, 150);
     light.decay = 1
@@ -399,22 +414,65 @@ document.addEventListener("DOMContentLoaded", () =>{
            
         }
     })
-    document.getElementById("CHSHeaderLeft").addEventListener("click", () => {
-        if (selectorSelection == 0) {
-            selectorSelection = 7
+    document.querySelectorAll(".rightbutton").forEach((e, i) => {
+        e.addEventListener("click", () => {
+            document.getElementsByClassName("menu")[tabselected].style.display = "none";
+            document.getElementsByClassName("rightbutton")[tabselected].style.backgroundColor = "white";
+            tabselected = i;
+            if (tabselected !== 0) {
+                document.getElementById("leftbuttons").style.opacity = "0";
+            } else {
+                document.getElementById("leftbuttons").style.opacity = "1";
+            }
+            document.getElementsByClassName("menu")[tabselected].style.display = "flex";
+            e.style.backgroundColor = "gold";
+        });
+    });
+    document.querySelectorAll(".leftbutton").forEach((e, i) => {
+        e.addEventListener("click", () => {
+            document.querySelectorAll(".leftbutton")[selectorSelection].classList.remove("green");
+            selectorSelection = i;
+            e.classList.add("green");
+            updateSelector();
+        });
+    });
+    function updateResetDisplays() {
+        if (chocolate.compare(new Decimal(3000)) >= 0) {
+            let gain = (new Decimal(3).pow(chocolate.sub(new Decimal(2999)).log(5))).div(20).plus(chocolate.pow(new Decimal(2))).div(new Decimal(90000000000)).round()
+            document.getElementById("meltbutton").innerHTML = "reset for "+gain+" melts"
+        } else {
+            document.getElementById("meltbutton").innerHTML = "reach 3000 chocolates to unlock this..."
         }
-        else {
-            selectorSelection -= 1
+    }
+    updateResetDisplays()
+    document.getElementById("meltbutton").addEventListener("click", () => {
+        if (chocolate.compare(new Decimal(3000)) >= 0) {
+            for (let n in scene.children) {
+                if (scene.children[n].name === selectedC) {
+                    scene.remove(scene.children[n])
+                }
+            }
+            let gain = (new Decimal(3).pow(chocolate.sub(new Decimal(2999)).log(5))).div(20) + (chocolate.pow(new Decimal(2))).div(new Decimal(90000000000)).round()
+            melts = melts.add(gain)
+            chocolate = new Decimal(0)
+            cInv = defaultInv
+            realInvArray = ["milk","milk","milk","milk","milk","milk","milk","milk"]
+            array = ["milk","milk","milk","milk","milk","milk","milk","milk"]
+            selectedC = 0
+            cDmg = new Decimal("1")
+            updateBarArray()
+            temparray = array;
+            multiArray = [new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1'),new Decimal('1')]
+            timeSince = Date.now()
+
+            for (let hawk in array) {
+                chocolateFunctionsPassive[array[hawk]](hawk)
+            }    
+            selectedCH = nHpAr[array[selectedC]]        
+            updateChDisplay()
+            updateResetDisplays()
+            updateSelector();
+            generateThreeBoard();
         }
-        updateSelector(selectorSelection);
-    })
-    document.getElementById("CHSHeaderRight").addEventListener("click", () => {
-        if (selectorSelection == 7) {
-            selectorSelection = 0
-        }
-        else {
-            selectorSelection += 1
-        }
-        updateSelector(selectorSelection);
     })
 });

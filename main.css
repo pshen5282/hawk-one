@@ -1,70 +1,69 @@
-.kulim-park-light {
-    font-family: "Kulim Park", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-  }
-  .kulim-park-bold {
-    font-family: "Kulim Park", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
+@font-face {
+    font-family: 'vcr';
+    src: url(misc/VCR_OSD_MONO_1.001.ttf);
+}
 
 body {
-    background-color: white;
+    background-color: rgb(212, 212, 212);
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 100%;
     overflow: hidden;
-    background-image: url("/misc/huh.png");
     background-size: cover;
 }
 #LeftSection {
-    width: 25%;
-    height: 100%;
+    width: 100%;
+    height: 15%;
     z-index: 2;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    bottom: -10%;
 }
 #CenterSection {
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    height: 50%;
 }
 #RightSection {
-    width: 25%;
-    height: 100%;
+    width: 100%;
+    height: 25%;
     display: flex;
     flex-direction: column;
     z-index: 2;
+    position: relative;
+    bottom: -10%;
+    background-color: gainsboro;
 }
-
-#ChocolateSelection {
+#chocolatemenu {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
-}
-#ChocolateTempDisplay {
-    font-family: 'Arial', sans-serif; 
+    flex-direction: row;
 }
 #EatButton {
     background-color: white;
     position: relative;
-    font-family: 'Kulim Park', sans-serif;
+    font-family: 'vcr';
     transition-duration: 0.5s;
-    width: 100%;
+    width: 12%;
     height: 20%;
     font-size: 8vmin;
-    opacity: 25%;
-    border: none;
-    border-radius: 0.5rem;
+    opacity: 75%;
+    border: black 0.3vmin solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
 }
 #EatButton:hover {
-    opacity: 90%;
+    opacity: 100%;
 }
 #ChocolateDisplayText {
     font-size: 10vmin;
-    font-family: 'Kulim Park', sans-serif;
+    font-family: 'vcr';
 }
 #CHSHeader {
     display:flex;
@@ -87,30 +86,15 @@ body {
 #CHSHeader > button:hover {
     opacity: 80%;
 }
-#CHSHeaderText {
-    width: 50%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 6vmin;
-    font-family: 'Kulim Park', sans-serif;
-    background-color: rgba(255, 255, 255, 0);
-}
-#CHSHeaderText > img {
-    width:200%;
-    user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-}
 
 #CSelOptions {
     background-color: transparent;
-    height: 50%;
+    height: 100%;
+    width: 70%;
     display: grid;
-    grid-template-columns: repeat(2, 50%);
-    grid-template-rows: repeat(5,25%);
-    font-family: 'Kulim Park', sans-serif;
+    grid-template-columns: repeat(3, 33%);
+    grid-template-rows: repeat(5,20%);
+    font-family: 'vcr';
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -119,35 +103,32 @@ body {
     height: 100%;
     font-size: 4vmin;
     transition-duration: 0.5s;
-    font-family: 'Kulim Park', sans-serif;
+    font-family: 'vcr';
     opacity: 50%;
-    border: none;
-    border-radius: 0.5rem;
+    border: black 0.2vmin solid;
+    border-top: none
 }
 #CSelOptions > button:hover {
     opacity: 90%;
 }
 
 #Store {
-    font-family: 'Kulim Park', sans-serif;
+    font-family: 'vcr';
     font-size: 10vmin;
     text-align: center;
     height: 65%;
     background-color: gainsboro;
     opacity: 0.75;
 }
-#Chocolate3dRender{
-    position: relative;
-    bottom: 10%;
-}
+
 .green {
     animation: 0.5s linear 0s forwards greenfn;
 }
 .hovertext {
-    height: 35%;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.25);
-    font-family: 'Kulim Park', sans-serif;
+    height: 100%;
+    width: 30%;
+    background-color: rgba(255, 255, 255, 0.75);
+    font-family: 'vcr';
     font-size: 3.5vmin;
     text-align: center;
 }
@@ -159,41 +140,153 @@ body {
 
     }
     to {
-        background-color: green;
+        background-color: gold;
     }
 }
 
 #StoreButtons {
     font-size: 4vmin;
-    overflow-y:scroll;
-    height: 83%;
+    overflow-x:scroll;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 #StoreButtons > div > button {
     width: 80%;
-    height: 10%;
+    height: 20%;
     align-self: center;
     font-size: 4vmin;
     background-color: gainsboro;
     transition-duration: 0.25s;
-    border:none;
-    border-radius: 0.5rem;
+    font-family: 'vcr';
 }
 #Storebuttons > div > span {
     font-size: 6vmin;
-    font-family: 'Kulim Park', sans-serif;
+    font-family: 'vcr';
     font-weight: 700;
-    background: -webkit-linear-gradient(#FFF3A2, #FF2B40);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 3px white;
 }
 #StoreButtons > div > button:hover {
     background-color: white;
 }
 #StoreButtons > div {
+    height: 100%;
+    width: 200%;
     transition-duration: 0.5s;
     background-color: rgb(200, 200, 200);
+    display: flex;
+    flex-direction: column;
+    font-family: 'vcr';
+    font-weight: 700;
+    font-size: 3vmin;
+}
+#StoreButtons > div:first-child {
+    margin-left: auto;
+}
+
+#StoreButtons > div:last-child {
+    margin-right: auto;
 }
 #StoreButtons > div:hover {
     background-color: rgb(150, 150, 150);
+}
+
+#Resets {
+    width: 25%;
+    opacity: 50%;
+}
+
+#ResetHead {
+    font-size: 6vmin;
+    font-family: 'vcr';
+    font-weight: 700;
+}
+#leftbuttons {
+    width: 70%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+}
+.leftbutton {
+    display: flex;
+    font-size: 6vmin;
+    font-family: 'vcr';
+    font-weight: 700;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    opacity: 90%;
+    transition-duration: 500ms;
+}
+.leftbutton:hover {
+    opacity: 75%;
+}
+#rightbuttons {
+    display: grid;
+    height: 100%;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    flex-grow: 1;
+}
+.rightbutton {
+    display: flex;
+    font-size: 6vmin;
+    font-family: 'vcr';
+    font-weight: 700;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    opacity: 50%;
+    transition-duration: 500ms;
+}
+.rightbutton:hover {
+    opacity: 90%;
+}
+#resetmenu {
+    font-size: 3vmin;
+    font-family: 'vcr';
+    font-weight: 600;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    flex-direction: row;
+}
+.reset {
+    height: 100%;
+    width: 30%;
+    background-color: rgba(255, 255, 255, 0.75);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.resettext {
+    font-size: 5vmin;
+    margin-bottom: 2.5%;
+}
+.resetinfo {
+    margin-bottom: 2.5%;
+    font-size: 2vmin;
+}
+.resetbutton {
+    width: 60%;
+    height: 40%;
+    font-size: 2vmin;
+    font-family: 'vcr';
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition-duration: 250ms;
+}
+.resetbutton:hover {
+    background-color: white;
+}
+.menu {
+    width: 100%;
+    height: 98%;
+}
+button {
+    border-color: buttonborder;
 }
